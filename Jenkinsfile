@@ -9,9 +9,14 @@ pipeline {
         stage('Display Text Files') {
             steps {
                 script {
-                    def files = findFiles(glob: '*.txt') // Find all .txt files
-                    for (file in files) {
-                        sh "cat ${file.path}" // Cat each text file
+                    def files = findFiles(glob: '*.txt')
+                    if (files.isEmpty()) {
+                        echo "No text files found."
+                    } else {
+                        for (file in files) {
+                            echo "Contents of ${file.name}:"
+                            sh "cat ${file.path}"
+                        }
                     }
                 }
             }
