@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     def files = findFiles(glob: '*.txt')
-                    if (files.isEmpty()) {
+                    if (files.length == 0) {
                         echo "No text files found."
                     } else {
                         for (file in files) {
