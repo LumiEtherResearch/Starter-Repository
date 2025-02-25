@@ -6,9 +6,14 @@ pipeline {
                 git branch: 'main', url: 'http://192.168.0.20:31803/LumiEtherResearch/Starter-Repository.git'
             }
         }
-        stage('Build') {
+        stage('Display Text Files') {
             steps {
-                sh 'echo "Building..."' # Replace with your build commands
+                script {
+                    def files = findFiles(glob: '*.txt') // Find all .txt files
+                    for (file in files) {
+                        sh "cat ${file.path}" // Cat each text file
+                    }
+                }
             }
         }
     }
